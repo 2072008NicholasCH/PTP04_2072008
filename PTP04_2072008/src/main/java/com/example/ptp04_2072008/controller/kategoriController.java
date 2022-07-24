@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -51,8 +48,24 @@ public class kategoriController {
     }
 
     public void addData(ActionEvent actionEvent) {
-        katDao.setData(new Category(Integer.parseInt(txtId.getText()), txtName.getText()));
+        if((txtId.getText().equals("") || (txtName.getText().equals("")))){
+            alert();
+        }else {
+            katDao.setData(new Category(Integer.parseInt(txtId.getText()), txtName.getText()));
+            reset();
+        }
         tampilan();
+    }
+
+    public void alert (){
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Please Fill the Field Properly", ButtonType.OK);
+        alert.showAndWait();
+    }
+
+    public void reset(){
+        txtName.clear();
+        txtId.clear();
+
     }
 
     public ObservableList<Category> getKatList() {

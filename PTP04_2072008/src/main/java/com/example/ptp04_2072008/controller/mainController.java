@@ -68,9 +68,25 @@ public class mainController {
     }
 
     public void addData(ActionEvent actionEvent) {
-        itemDao.setData(new Item(Integer.parseInt(txtId.getText()), txtName.getText(), Double.parseDouble(txtPrice.getText()), txtaDesc.getText(), cBoxKat.getValue()));
+
+        if ((txtId.getText().equals("")) || (txtPrice.getText().equals("")) || (txtName.getText().equals("")) || (txtaDesc.getText().equals("")) || (cBoxKat.getValue() == null)){
+            alert();
+        } else {
+            int id = Integer.parseInt(txtId.getText());
+            String nama = txtName.getText();
+            double price = Double.parseDouble(txtPrice.getText());
+            String desc = txtaDesc.getText();
+            Category cBox = cBoxKat.getValue();
+            itemDao.setData(new Item(id, nama, price, desc, cBox));
+            reset();
+        }
         tampilan();
-        reset();
+
+    }
+
+    public void alert (){
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Please Fill the Field Properly", ButtonType.OK);
+        alert.showAndWait();
     }
 
     public void reset() {
